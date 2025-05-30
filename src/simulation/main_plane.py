@@ -1,26 +1,48 @@
-import pygame
+import pygame as pg
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-running = True
 
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+global bg_color
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("white")
 
-    # RENDER YOUR GAME HERE
+class Plane:
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    FPS = 60
+    bg_color = WHITE
 
-    # flip() the display to put your work on screen
-    pygame.display.flip()
+    def __init__(self, width, height):
+        self.size = (width, height)
 
-    clock.tick(60)  # limits FPS to 60
+    def render_plane(self):
+        # pygame setup
+        pg.init()
+        screen = pg.display.set_mode(self.size)
+        clock = pg.time.Clock()
+        running = True
+        while running:
+            # poll for events
+            # pygame.QUIT event means the user clicked X to close your window
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    running = False
+            # fill the screen with a color to wipe away anything from last frame
+            screen.fill(self.bg_color)
 
-pygame.quit()
+            # flip() the display to put your work on screen
+            pg.display.flip()
+
+            clock.tick(self.FPS)  # limits FPS
+        print('Program closed(((')
+        pg.quit()
+
+    def close_plane(self):
+        print('Program closed!')
+        pg.quit()
+
+
+plane = Plane(1200, 720)
+plane.render_plane()
+plane.close_plane()
